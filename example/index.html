@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        span{
+        span {
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0;
             padding: 0;
         }
-        .grid{
+
+        .grid {
             width: 302px;
             height: 302px;
             border: 1px solid black;
@@ -28,7 +30,8 @@
             padding: 0;
             vertical-align: middle;
         }
-        .grid span{
+
+        .grid span {
             width: calc(300px/5);
             height: calc(300px/5);
             box-sizing: border-box;
@@ -37,7 +40,7 @@
             vertical-align: middle;
         }
 
-        .vertical{
+        .vertical {
             width: 300px;
             border: 1px solid black;
             position: relative;
@@ -49,7 +52,8 @@
             margin-bottom: 20px;
             padding: 0;
         }
-        .vertical span{
+
+        .vertical span {
             padding: 5px 0;
             margin-bottom: 10px;
             width: 100%;
@@ -61,9 +65,11 @@
         }
     </style>
 </head>
+
 <body>
-    
-    <div class="grid">
+
+    <h3>{target: e.target.dataset.i, shuffle: false, center: true}</h3>
+    <div class="grid" id='grid'>
         <span data-i='1'>1</span>
         <span data-i='2'>2</span>
         <span data-i='3'>3</span>
@@ -90,8 +96,80 @@
         <span data-i='24'>24</span>
         <span data-i='25'>25</span>
     </div>
-    
-    <div class="vertical">
+
+    <h3>{target: e.target.dataset.i, shuffle: true}</h3>
+    <div class="grid" id='grid2'>
+        <span data-i='1'>1</span>
+        <span data-i='2'>2</span>
+        <span data-i='3'>3</span>
+        <span data-i='4'>4</span>
+        <span data-i='5'>5</span>
+        <span data-i='6'>6</span>
+        <span data-i='7'>7</span>
+        <span data-i='8'>8</span>
+        <span data-i='9'>9</span>
+        <span data-i='10'>10</span>
+        <span data-i='11'>11</span>
+        <span data-i='12'>12</span>
+        <span data-i='13'>13</span>
+        <span data-i='14'>14</span>
+        <span data-i='15'>15</span>
+        <span data-i='16'>16</span>
+        <span data-i='17'>17</span>
+        <span data-i='18'>18</span>
+        <span data-i='19'>19</span>
+        <span data-i='20'>20</span>
+        <span data-i='21'>21</span>
+        <span data-i='22'>22</span>
+        <span data-i='23'>23</span>
+        <span data-i='24'>24</span>
+        <span data-i='25'>25</span>
+    </div>
+
+    <h3>{target: e.target.dataset.i,shuffle: true,ease: 'easeInOutCirc',time: `2000ms`}</h3>
+    <div class="grid" id='grid3'>
+        <span data-i='1'>1</span>
+        <span data-i='2'>2</span>
+        <span data-i='3'>3</span>
+        <span data-i='4'>4</span>
+        <span data-i='5'>5</span>
+        <span data-i='6'>6</span>
+        <span data-i='7'>7</span>
+        <span data-i='8'>8</span>
+        <span data-i='9'>9</span>
+        <span data-i='10'>10</span>
+        <span data-i='11'>11</span>
+        <span data-i='12'>12</span>
+        <span data-i='13'>13</span>
+        <span data-i='14'>14</span>
+        <span data-i='15'>15</span>
+        <span data-i='16'>16</span>
+        <span data-i='17'>17</span>
+        <span data-i='18'>18</span>
+        <span data-i='19'>19</span>
+        <span data-i='20'>20</span>
+        <span data-i='21'>21</span>
+        <span data-i='22'>22</span>
+        <span data-i='23'>23</span>
+        <span data-i='24'>24</span>
+        <span data-i='25'>25</span>
+    </div>
+
+    <h3>{target: e.target.dataset.i, shuffle: false}</h3>
+    <div class="vertical" id='vertical'>
+        <span data-i='1'>1</span>
+        <span data-i='2'>2</span>
+        <span data-i='3'>3</span>
+        <span data-i='4'>4</span>
+        <span data-i='5'>5</span>
+        <span data-i='6'>6</span>
+        <span data-i='7'>7</span>
+        <span data-i='8'>8</span>
+        <span data-i='9'>9</span>
+    </div>
+
+    <h3>{shuffle: true}</h3>
+    <div class="vertical" id='vertical2'>
         <span data-i='1'>1</span>
         <span data-i='2'>2</span>
         <span data-i='3'>3</span>
@@ -105,28 +183,91 @@
 
     <script src="../src/index.js"></script>
     <script>
-        const grid = document.querySelector('.grid');
-        const gs = new ShuffleAnimate({data: [...grid.children]});
-        grid.addEventListener('click', (e)=>{
-            [...grid.children].map(x=>{x.style.color = `black`})
-            e.target.style.color = `red`;
-            gs.update({
-                target: e.target.dataset.i,
-                ease: `easeInCirc`,
+        (function () {
+            const grid = document.querySelector('#grid');
+            const gs = new ShuffleAnimate({
+                data: [...grid.children]
             });
-        })
+            grid.addEventListener('click', (e) => {
+                [...grid.children].map(x => {
+                    x.style.color = `black`
+                })
+                e.target.style.color = `red`;
+                gs.update({
+                    target: e.target.dataset.i,
+                    shuffle: false,
+                    center: true,
+                });
+            })
+        })();
 
-        const vertical = document.querySelector('.vertical');
-        const verticals = new ShuffleAnimate({data: [...vertical.children]});
-        vertical.addEventListener('click', (e)=>{
-            [...vertical.children].map(x=>{x.style.color = `black`})
-            e.target.style.color = `red`;
-            verticals.update({
-                target: e.target.dataset.i,
-                ease: `easeInCirc`,
+        (function () {
+            const grid = document.querySelector('#grid2');
+            const gs = new ShuffleAnimate({
+                data: [...grid.children]
             });
-        })
-        
+            grid.addEventListener('click', (e) => {
+                [...grid.children].map(x => {
+                    x.style.color = `black`
+                })
+                e.target.style.color = `red`;
+                gs.update({
+                    target: e.target.dataset.i,
+                    shuffle: true
+                });
+            })
+        })();
+
+        (function () {
+            const grid = document.querySelector('#grid3');
+            const gs = new ShuffleAnimate({
+                data: [...grid.children]
+            });
+            grid.addEventListener('click', (e) => {
+                [...grid.children].map(x => {
+                    x.style.color = `black`
+                })
+                e.target.style.color = `red`;
+                gs.update({
+                    target: e.target.dataset.i,
+                    shuffle: true,
+                    ease: 'easeInOutCirc',
+                    time: `2000ms`
+                });
+            })
+        })();
+
+        (() => {
+            const vertical = document.querySelector('#vertical');
+            const verticals = new ShuffleAnimate({
+                data: [...vertical.children]
+            });
+            vertical.addEventListener('click', (e) => {
+                [...vertical.children].map(x => {
+                    x.style.color = `black`
+                })
+                e.target.style.color = `red`;
+                verticals.update({
+                    target: e.target.dataset.i,
+                    shuffle: false
+                });
+            })
+        })();
+
+        (() => {
+            const vertical = document.querySelector('#vertical2');
+            const verticals = new ShuffleAnimate({
+                data: [...vertical.children]
+            });
+            vertical.addEventListener('click', (e) => {
+                [...vertical.children].map(x => {
+                    x.style.color = `black`
+                })
+                e.target.style.color = `red`;
+                verticals.update();
+            })
+        })();
     </script>
 </body>
+
 </html>

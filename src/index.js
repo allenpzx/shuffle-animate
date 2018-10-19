@@ -1,9 +1,38 @@
 /**
  * TODO: 随机动画
  *
- * @param {Array} new ShuffleAnimate(doms<Array>);
- *
- *
+ * @param {Array} new ShuffleAnimate(doms<Array or Array-like>) => instance; 
+ * 初始化获得实例 doms 是类数组或者数组都可以, doms的容器组件设置position属性最好
+ * 
+ * @param {Object} {
+ * sa.update({
+ *   target: <Number> || <Array>, // '1' || 1 目标值的索引 
+ *   shuffle: <Boolean>, // true || false 是否随机排序, 否的话按正序排列
+ *   ease: <String>, // 'easeInOutCirc' 速度曲线, 可选见下文, 也可以自己定制化贝塞尔曲线
+ *   time: <String>, // `2000ms` `2s` 过渡时间
+ *   center: <Boolean>, // true || false 用此参数则target必填, 表示target块会先过渡到容器的中点(过渡到中点的时间=time), 然后再过渡到目标位置
+ * });
+ * 以上参数都不是必填项 sa.update() 执行默认随机效果
+ * 
+ * @example 
+ * 
+ *  const box = document.querySelector('#box');
+ *  const gs = new ShuffleAnimate({
+ *      data: [...box.children] // 容器内子元素的集合 类数组或者数组都可以
+ *  });
+ *   box.addEventListener('click', (e) => {
+ *      e.stopPropagation()
+ *       [...box.children].map(x => {
+ *           x.style.color = `black`
+ *       })
+ *       e.target.style.color = `red`;
+ *       gs.update({
+ *           target: e.target.dataset.i,
+ *           shuffle: true,
+ *           ease: 'easeInOutCirc',
+ *           time: `2000ms`
+ *       });
+ *   })
  *
  **/
 
@@ -54,28 +83,57 @@ class ShuffleAnimate {
     }
 
     update(props) {
-        let after_shuffle = this.shuffle(this.origin.slice());
-        if (props.target) {
-            const index = after_shuffle.findIndex(x => {
-                if (x.dataset.i === props.target) {
-                    return true
-                }
-            });
-            const first = after_shuffle[index];
-            after_shuffle = after_shuffle.splice(index, 1).concat(after_shuffle);
+        let doms = props && props.shuffle === false ? this.origin.slice() : this.shuffle(this.origin.slice());
+        if (props && props.target) {
+            const index = doms.findIndex(x => x.dataset.i === props.target);
+            doms = doms.splice(index, 1).concat(doms);
         }
-        after_shuffle.map((x, i) => {
+        doms.map((x, i) => {
             const l = this.origin[i].offsetLeft;
             const t = this.origin[i].offsetTop;
             const xl = x.offsetLeft;
             const xt = x.offsetTop;
             const disx = parseFloat(l - xl);
             const disy = parseFloat(t - xt);
+            const time = props && props.time ? props.time : `600ms`;
+            const ease = props && props.ease 
+                        ? this.ease.hasOwnProperty(props.ease) ? this.ease[props.ease] :  props.ease
+                        : this.ease.easeInSine;
 
             x.style.willChange = `transform`;
-            x.style.webkitTransition = `all 600ms ${this.ease.easeInQuart}`;
-            x.style.transition = `all 600ms ${this.ease.easeInQuart}`;
+
+            if (i === 0 && props && props.center) {
+                const box = x.parentElement;
+                const boxX = box.offsetWidth;
+                const boxY = box.offsetHeight;
+                const cx = boxX * 0.5;
+                const cy = boxY * 0.5;
+                const discx = parseFloat(cx - xl) - (x.offsetWidth * 0.5);
+                const discy = parseFloat(cy - xt) - (x.offsetHeight * 0.5);
+                const _zIndex = x.style.zIndex;
+
+                x.style.zIndex = `999`;
+                x.style.webkitTransition = `transform ${time} ${ease}`;
+                x.style.transition = `transform ${time} ${ease}`;
+
+                x.style.webkitTransform = `translate3d(${discx}px, ${discy}px, 0) scale(1.5, 1.5)`;
+                x.style.transform = `translate3d(${discx}px, ${discy}px, 0) scale(1.5, 1.5)`;
+
+                setTimeout(() => {
+                    x.style.zIndex = _zIndex;
+                    x.style.webkitTransform = `translate3d(${disx}px, ${disy}px, 0) scale(1, 1)`;
+                    x.style.transform = `translate3d(${disx}px, ${disy}px, 0) scale(1, 1)`;
+                }, parseFloat(time));
+                return
+            }
+            
+            x.style.webkitTransition = `transform ${time} ${ease}`;
+            x.style.transition = `transform ${time} ${ease}`;
+            x.style.webkitTransform = `translate3d(${disx}px, ${disy}px, 0)`;
             x.style.transform = `translate3d(${disx}px, ${disy}px, 0)`;
+
         });
     }
 }
+
+module.exports = ShuffleAnimate
