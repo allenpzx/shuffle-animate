@@ -1,16 +1,35 @@
 # shuffle-animate
 
-##### 想法
+[![NPM](https://nodei.co/npm/shuffle-animate.png)](https://nodei.co/npm/shuffle-animate/)
+
+#### 想法
 ```flow
-st=>请求
+st=start:Start
+i=inputoutput:输入年份n
+cond1=condition:n能否被4整除？
+cond2=condition:n能否被100整除？
+cond3=condition:n能否被400整除？
+o1=inputoutput:输出非闰年
+o2=inputoutput:输出非闰年
+o3=inputoutput:输出闰年
+o4=inputoutput:输出闰年
+e=end
+
+st-i-cond1
+cond1(no)-o1-e
+cond1(yes)-cond2
+cond2(no)-o3-e
+cond2(yes)-cond3
+cond3(yes)-o2-e
+cond3(no)-o4-e
 ```
-##### 演示
-[点击查看演示](https://allenpzx.github.io/shuffle-animate/example/)
+#### 演示
+[点击查看演示](https://allenpzx.github.io/shuffle-animate/example)
 
 
 
 
-##### 使用方法
+#### 使用方法
 
 1. 安装 `npm install shuffle-animate --save;`
 
@@ -51,7 +70,7 @@ st=>请求
 
 
 
-##### 可选动画曲线
+#### 可选动画曲线
 
 ```javascript
 easeInSine: `cubic-bezier(0.47, 0, 0.745, 0.715)`,
@@ -87,7 +106,7 @@ easeOutBack: `cubic-bezier(0.175, 0.885, 0.32, 1.275)`,
 easeInOutBack: `cubic-bezier(0.68, -0.55, 0.265, 1.55)`
 ```
 
-##### 案例
+#### 案例
 
 ```javascript
 (() => {
