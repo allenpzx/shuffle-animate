@@ -1,0 +1,32 @@
+{
+  "name": "shuffle-animate",
+  "version": "1.0.0",
+  "description": "ease shuffle-animate",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "test",
+    "build": "webpack --config webpack.config.js",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allenpzx/shuffle-animate.git"
+  },
+  "keywords": [
+    "shuffle",
+    "animate"
+  ],
+  "author": "pengzixiu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/allenpzx/shuffle-animate/issues"
+  },
+  "homepage": "https://github.com/allenpzx/shuffle-animate#readme",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-loader": "^8.0.4",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  }
+}

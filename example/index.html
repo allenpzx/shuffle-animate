@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        span{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+        .grid{
+            width: 302px;
+            height: 302px;
+            border: 1px solid black;
+            position: relative;
+            box-sizing: border-box;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            margin-bottom: 30px;
+            padding: 0;
+            vertical-align: middle;
+        }
+        .grid span{
+            width: calc(300px/5);
+            height: calc(300px/5);
+            box-sizing: border-box;
+            border: 1px solid grey;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .vertical{
+            width: 300px;
+            border: 1px solid black;
+            position: relative;
+            box-sizing: border-box;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            padding: 0;
+        }
+        .vertical span{
+            padding: 5px 0;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 0px solid grey;
+            background-color: rgba(223, 134, 123, .5);
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="grid">
+        <span data-i='1'>1</span>
+        <span data-i='2'>2</span>
+        <span data-i='3'>3</span>
+        <span data-i='4'>4</span>
+        <span data-i='5'>5</span>
+        <span data-i='6'>6</span>
+        <span data-i='7'>7</span>
+        <span data-i='8'>8</span>
+        <span data-i='9'>9</span>
+        <span data-i='10'>10</span>
+        <span data-i='11'>11</span>
+        <span data-i='12'>12</span>
+        <span data-i='13'>13</span>
+        <span data-i='14'>14</span>
+        <span data-i='15'>15</span>
+        <span data-i='16'>16</span>
+        <span data-i='17'>17</span>
+        <span data-i='18'>18</span>
+        <span data-i='19'>19</span>
+        <span data-i='20'>20</span>
+        <span data-i='21'>21</span>
+        <span data-i='22'>22</span>
+        <span data-i='23'>23</span>
+        <span data-i='24'>24</span>
+        <span data-i='25'>25</span>
+    </div>
+    
+    <div class="vertical">
+        <span data-i='1'>1</span>
+        <span data-i='2'>2</span>
+        <span data-i='3'>3</span>
+        <span data-i='4'>4</span>
+        <span data-i='5'>5</span>
+        <span data-i='6'>6</span>
+        <span data-i='7'>7</span>
+        <span data-i='8'>8</span>
+        <span data-i='9'>9</span>
+    </div>
+
+    <script src="../src/index.js"></script>
+    <script>
+        const grid = document.querySelector('.grid');
+        const gs = new ShuffleAnimate({data: [...grid.children]});
+        grid.addEventListener('click', (e)=>{
+            [...grid.children].map(x=>{x.style.color = `black`})
+            e.target.style.color = `red`;
+            gs.update({
+                target: e.target.dataset.i,
+                ease: `easeInCirc`,
+            });
+        })
+
+        const vertical = document.querySelector('.vertical');
+        const verticals = new ShuffleAnimate({data: [...vertical.children]});
+        vertical.addEventListener('click', (e)=>{
+            [...vertical.children].map(x=>{x.style.color = `black`})
+            e.target.style.color = `red`;
+            verticals.update({
+                target: e.target.dataset.i,
+                ease: `easeInCirc`,
+            });
+        })
+        
+    </script>
+</body>
+</html>
