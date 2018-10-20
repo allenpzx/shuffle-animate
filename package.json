@@ -1,6 +1,6 @@
 {
   "name": "shuffle-animate",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "ease shuffle-animate",
   "main": "src/index.js",
   "scripts": {

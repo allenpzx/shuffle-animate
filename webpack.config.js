@@ -5,7 +5,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'main.js',
-        library: 'shuffleAnimate',
+        library: 'ShuffleAnimate',
         libraryTarget: 'umd'
     },
     module: {
