@@ -2,7 +2,9 @@
 
 [![NPM](https://nodei.co/npm/shuffle-animate.png)](https://nodei.co/npm/shuffle-animate/)
 
+#### 案例
 
+![案例](https://raw.githubusercontent.com/allenpzx/shuffle-animate/master/example/example.gif)
 
 #### 演示
 [点击查看演示](https://allenpzx.github.io/shuffle-animate/example)
